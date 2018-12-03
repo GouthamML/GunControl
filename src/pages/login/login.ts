@@ -4,6 +4,10 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 
 import { GovhomePage } from '../govhome/govhome';
 import { ManfhomePage } from '../manfhome/manfhome';
+import { DealerPage } from '../dealer/dealer';
+import { CushomePage } from '../cushome/cushome';
+
+
 /**
  * Generated class for the LoginPage page.
  *
@@ -30,12 +34,19 @@ export class LoginPage {
     console.log(this.credentials);
     localStorage.setItem("credentials", JSON.stringify(this.credentials));
     var self = this;
-    if (this.credentials["username"] == "g") {
+    if (this.credentials["username"].match(/gov\w+/g) || this.credentials["username"].match(/Gov\w+/g)) {
       self.navCtrl.setRoot(GovhomePage);
     }
-    else if(this.credentials["username"] == "m"){
+    else if(this.credentials["username"].match(/man\w+/g) || this.credentials["username"].match(/Man\w+/g)){
       self.navCtrl.setRoot(ManfhomePage);
     }
+    else if(this.credentials["username"].match(/deal\w+/g) || this.credentials["username"].match(/Deal\w+/g)){
+      self.navCtrl.setRoot(DealerPage);
+    }
+    else if(this.credentials["username"].match(/0\w+/g) || this.credentials["username"].match(/Cus\w+/g)){
+      self.navCtrl.setRoot(CushomePage);
+    }
+    
     else {
       let alert = this.alertCtrl.create({
         title: 'Invalid Login',

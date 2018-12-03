@@ -16,7 +16,7 @@ import { AlertController } from 'ionic-angular';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Authorization': 'Basic RGVlcGFsaS5zYXJhc3dhdEBvcmFjbGUuY29tOkJhbmdhbG9yZUAxMjM0',
+    'Authorization': 'Basic Y2xvdWQuYWRtaW46SFVmRnlANldBVGNo',
     'Content-Type': 'application/json'
 
   }),
@@ -43,9 +43,9 @@ export class CommonserviceProvider {
     console.log('Hello CommonserviceProvider Provider');
 
     this.channel = 'default';
-    this.chaincode = 'chain21';
+    this.chaincode = 'gun2';
     this.chaincodeVer = 'v1';
-    this.API_URL = 'https://BA79E21CBFB44C87B4736086F7B36109.blockchain.ocp.oraclecloud.com:443/restproxy1/bcsgw/rest/v1/transaction/query';
+    this.API_URL = 'https://3EE9983C6B0A43969A8253630B24F1B2.blockchain.ocp.oraclecloud.com:443/restproxy1/bcsgw/rest/v1/transaction/invocation';
     this.API_inv_URL = 'https://BA79E21CBFB44C87B4736086F7B36109.blockchain.ocp.oraclecloud.com:443/restproxy1/bcsgw/rest/v1/transaction/invocation '
 
   }
@@ -86,5 +86,106 @@ export class CommonserviceProvider {
     return date.getDate() + " " + m_names[date.getMonth()] + " " + date.getFullYear();
   }
 
+  listGunsWithDealer(dealerName){
+    console.log(dealerName);
+    let jsonBody = {
+      "channel": this.channel,
+      "chaincode": this.chaincode,
+      "method": "queryProduct",
+      "args": ["{\"selector\":{\"Gun\":\"gun\",\"dealername\":\"" + dealerName + "\"}}"],
+      "chaincodeVer": this.chaincodeVer
+    };
+    console.log(jsonBody);
+    return this.httpclient.post(this.API_URL, jsonBody, httpOptions)
+  }
+
+  listGunsWithmanufacturer(manufacturerName){
+    let jsonBody = {
+      "channel": this.channel,
+      "chaincode": this.chaincode,
+      "method": "queryProduct",
+      "args": ["{\"selector\":{\"Gun\":\"gun\",\"dealername\":\" " + manufacturerName + "\"}}"],
+      "chaincodeVer": this.chaincodeVer
+    };
+    return this.httpclient.post(this.API_inv_URL, jsonBody, httpOptions)
+  }
+
+  addCustomer(ssn, name, age, location, address){
+    console.log(ssn, name, age, location, address);
+    let jsonBody = {
+      "channel": this.channel,
+      "chaincode": this.chaincode,
+      "method": "initCustomer",
+      "args": [ssn, name, age, location, address],
+      "chaincodeVer": this.chaincodeVer
+    };
+
+    console.log(jsonBody);
+    console.log(this.httpclient.post(this.API_URL, jsonBody, httpOptions))
+    return this.httpclient.post(this.API_URL, jsonBody, httpOptions);
+  }
+
+  transferToCustomer(gunId, dealerName, CustomerName, ssn){
+    let jsonBody = {
+      "channel": this.channel,
+      "chaincode": this.chaincode,
+      "method": "initCustomer",
+      "args": [gunId, dealerName, CustomerName, ssn],
+      "chaincodeVer": this.chaincodeVer
+    };
+
+    return this.httpclient.post(this.API_URL, jsonBody, httpOptions);
+  }
+
+  readPersona(ssn){
+    let jsonBody = {
+      "channel": this.channel,
+      "chaincode": this.chaincode,
+      "method": "readPersona",
+      "args": [ssn],
+      "chaincodeVer": this.chaincodeVer
+    };
+    return this.httpclient.post(this.API_URL, jsonBody, httpOptions);
+  }
+
+  transferProductToCustomer(gunId, delaerName, custName, custSsn){
+    let jsonBody = {
+      "channel": this.channel,
+      "chaincode": this.chaincode,
+      "method": "transferProductToCustomer",
+      "args": [gunId, delaerName, custName, custSsn],
+      "chaincodeVer": this.chaincodeVer
+    };
+
+    return this.httpclient.post(this.API_URL, jsonBody, httpOptions);
+  }
+  
+  
+  getHistoryForProduct(gunId){
+    let jsonBody = {
+      "channel": this.channel,
+      "chaincode": this.chaincode,
+      "method": "getHistoryForProduct",
+      "args": [gunId],
+      "chaincodeVer": this.chaincodeVer
+    };
+    return this.httpclient.post(this.API_URL, jsonBody, httpOptions);
+  }
+
+  readGunWithCustomer(custname){
+    let jsonBody = {
+      "channel": this.channel,
+      "chaincode": this.chaincode,
+      "method": "queryProduct",
+      "args": ["{\"selector\":{\"Gun\":\"gun\",\"owner\":\"" + custname + "\"}}"],
+      "chaincodeVer": this.chaincodeVer
+    };
+    return this.httpclient.post(this.API_URL, jsonBody, httpOptions);
+  }
+    
+  
 
 }
+
+
+

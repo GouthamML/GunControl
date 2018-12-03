@@ -16,6 +16,12 @@ import { GovhomePage } from '../pages/govhome/govhome';
 import { GovsecscreenPage } from '../pages/govsecscreen/govsecscreen';
 import { ManfhomePage } from '../pages/manfhome/manfhome';
 import { CommonserviceProvider } from '../providers/commonservice/commonservice';
+import { DealerPage } from '../pages/dealer/dealer';
+import { ListGunDealerPage } from '../pages/list-gun-dealer/list-gun-dealer';
+import { CushomePage } from '../pages/cushome/cushome';
+import { HistoryPage } from '../pages/history/history';
+
+
 
 @NgModule({
   declarations: [
@@ -23,7 +29,11 @@ import { CommonserviceProvider } from '../providers/commonservice/commonservice'
     LoginPage,
     GovhomePage,
     GovsecscreenPage,
-    ManfhomePage
+    ManfhomePage,
+    DealerPage,
+    ListGunDealerPage,
+    CushomePage,
+    HistoryPage
   ],
   imports: [
     BrowserModule,
@@ -37,7 +47,11 @@ import { CommonserviceProvider } from '../providers/commonservice/commonservice'
     LoginPage,
     GovhomePage,
     GovsecscreenPage,
-    ManfhomePage
+    ManfhomePage,
+    DealerPage,
+    ListGunDealerPage,
+    CushomePage,
+    HistoryPage
   ],
   providers: [
     HTTP,
